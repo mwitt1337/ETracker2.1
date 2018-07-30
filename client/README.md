@@ -1,6 +1,6 @@
-# etracker2.0-client
+# etrackerclient
 
-> vue.js and node mysql project
+> eTracker Client
 
 ## Build Setup
 
