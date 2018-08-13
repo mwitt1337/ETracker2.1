@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize')
 const districtModel = require('./models/district')
-const buildingModel = require('./models/blog')
+const buildingModel = require('./models/building')
 const meterModel = require('./models/meter')
 const billModel = require('./models/bill')
-const etrackerModel = require('./models/etraceker')
+const etrackerModel = require('./models/etracker')
 
 const sequelize = new Sequelize('etracker', 'root', 'admin', {
   host: 'localhost',

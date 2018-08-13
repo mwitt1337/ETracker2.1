@@ -1,10 +1,9 @@
-module.exports = (sequelize, type) => {
-  return sequelize.define('building', {
+module.exports = (sequelize, DataTypes) =>
+  sequelize.define('building', {
     id: {
-      type: type.INTEGER,
+      type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      unique: true
     },
-    name: type.STRING
+    name: DataTypes.STRING
   })
-}

@@ -1,10 +1,9 @@
-module.exports = (sequelize, type) => {
-  return sequelize.define('bill', {
+module.exports = (sequelize, DataTypes) =>
+  sequelize.define('bill', {
     id: {
-      type: type.INTEGER,
+      type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      unique: true
     },
-    name: type.STRING
+    name: DataTypes.STRING
   })
-}
