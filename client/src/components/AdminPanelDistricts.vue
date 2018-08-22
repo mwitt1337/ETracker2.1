@@ -1,21 +1,64 @@
 <template>
-    <div>
-        <h1>Admin Panel - Districts</h1>
-        <input
+  <v-app id="inspire">
+    <v-navigation-drawer
+      v-model="drawer"
+      fixed
+      app
+    >
+      <v-list dense>
+        <v-list-tile >
+          <v-list-tile-action>
+            <v-icon>home</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Home</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile >
+          <v-list-tile-action>
+            <v-icon>contact_mail</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Contact</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+    <v-toolbar color="indigo" dark fixed app>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title>Application</v-toolbar-title>
+    </v-toolbar>
+    <v-content>
+      <v-container fluid fill-height>
+        <v-layout
+          justify-center
+          align-center
+        >
+          <v-flex text-xs-center>
+            <h1>Admin Panel - Districts</h1>
+            <input
             type="text"
             name="name"
             placeholder="District Name" />
-
-    <br>
-    <button>Save</button>
-    </div>
+            <br>
+            <button>Save</button>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
+    <v-footer color="indigo" app>
+      <span class="white--text">The Brewer-Garrett Company &copy; 2018</span>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
-export default{
-  data () {
-    return {
-      name: ''
-    }
+export default {
+  data: () => ({
+    drawer: null
+  }),
+  props: {
+    source: String
   }
 }
+</script>

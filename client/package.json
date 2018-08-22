@@ -14,12 +14,16 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@mdi/font": "^2.6.95",
     "auth0-js": "^9.7.3",
     "axios": "^0.18.0",
+    "material-design-icons-iconfont": "^3.0.3",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuetify": "^1.1.13"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.2.0",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^8.2.1",
@@ -38,7 +42,7 @@
     "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^5.0.1",
     "cross-spawn": "^5.0.1",
-    "css-loader": "^0.28.0",
+    "css-loader": "^0.28.11",
     "eslint": "^4.15.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-friendly-formatter": "^3.0.0",

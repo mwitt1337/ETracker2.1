@@ -1,74 +1,201 @@
 <template>
-  <div class="dashboard">
-    <nav class="navbar navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">
-        <img src="https://a.storyblok.com/f/39898/1024x1024/dea4e1b62d/vue-js_logo-svg.png" width="40" height="40">
-      </a>
-      <div>
-        <img :src="$auth.user.picture" width="30" height="30">
-        <span class="text-muted font-weight-light px-2">{{$auth.user.name}}</span>
-        <button type="button" class="btn btn-outline-secondary btn-sm" @click="$auth.logout()">Logout</button>
-      </div>
-    </nav>
-    <div class="jumbotron">
-      <div class="container">
-        <h1 class="display-4">Hello, {{$auth.user.name}}!</h1>
-        <p class="lead">We hope you liked this tutorial and can now start building new astounding projects from this start point. If you're interested in what we're doing besides tech tutorials check out <a href="https://www.storyblok.com">@storyblok</a>.</p>
-        <hr class="my-4">
-        <p>TBH, I'm sure this project of yours would look great with a landing page filled with content composed in <a href="https://www.storyblok.com">Storyblok</a> 🎉</p>
-        <p class="lead">
-          <a class="btn btn-primary btn-lg" href="https://www.storyblok.com/getting-started" target="_blank" role="button">Getting Started</a>
-          <a class="btn btn-secondary btn-lg" href="https://twitter.com/home?status=Have%20a%20look%20at%20%40storyblok%20and%20their%20%40vuejs%20%2B%20%40auth0%20tutorial%3A%20https%3A//www.storyblok.com/tp/how-to-auth0-vuejs-authentication" target="_blank" role="button">Tweet it</a>
-        </p>
-
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="card-columns">
-        <a class="card" :href="getStoryLink(story)" target="_blank" v-for="story in stories" :key="story.id">
-          <img class="card-img-top" :src="story.content.image" :alt="story.content.image_alt">
-          <div class="card-body">
-            <h5 class="card-title">{{story.content.title}}</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
+  <v-app id="inspire">
+    <v-navigation-drawer v-model="drawer" fixed app>
+      <v-list dense>
+        <v-list-tile >
+          <v-list-tile-action>
+            <v-icon>fa-home</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Home</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon>fa-building</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Districts and Buildings</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon>fa-tachometer-alt</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Meters</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon>fa-user-cog</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Users</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+    <v-toolbar color="indigo" dark fixed app>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title>eTracker 2.1</v-toolbar-title>
+    </v-toolbar>
+    <v-content>
+      <v-container fluid grid-list-sm>
+    <v-layout row wrap>
+      <v-flex d-flex xs12 order-xs5>
+        <v-layout column>
+          <v-flex d-flex>
+            <v-data-table
+    :headers="headers"
+    :items="desserts"
+    hide-actions
+    class="elevation-1"
+  >
+    <template slot="items" slot-scope="props">
+      <td>{{ props.item.name }}</td>
+      <td class="text-xs-right">{{ props.item.calories }}</td>
+      <td class="text-xs-right">{{ props.item.fat }}</td>
+      <td class="text-xs-right">{{ props.item.carbs }}</td>
+      <td class="text-xs-right">{{ props.item.protein }}</td>
+      <td class="text-xs-right">{{ props.item.iron }}</td>
+    </template>
+  </v-data-table>
+          </v-flex>
+        </v-layout>
+      </v-flex>
+      <v-flex d-flex xs12 sm7>
+        <v-layout row wrap>
+          <v-flex d-flex>
+            <v-card tile flat>
+              <v-card-text>{{ pageTitle.slice(0, 70) }}</v-card-text>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-flex>
+    </v-layout>
+  </v-container>
+    </v-content>
+    <v-footer color="indigo" app>
+      <span class="white--text">&nbsp; The Brewer-Garrett Company &copy; 2017</span>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
-  data () {
-    return {
-      stories: []
-    }
-  },
-  mounted () {
-    axios.get('https://api.storyblok.com/v1/cdn/stories?starts_with=tp&excluding_fields=body&excluding_ids=48471,48547,60491&token=dtONJHwmxhdJOwKxyjlqAgtt').then((res) => {
-      this.stories = res.data.stories
-    })
-  },
-  methods: {
-    getStoryLink (story) {
-      return `https://www.storyblok.com/${story.full_slug}`
-    }
+  data: () => ({
+    drawer: null,
+    lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`,
+    pageTitle: `School District Name`,
+    headers: [
+      {
+        text: 'Dessert (100g serving)',
+        align: 'left',
+        sortable: false,
+        value: 'name'
+      },
+      { text: 'Calories', value: 'calories' },
+      { text: 'Fat (g)', value: 'fat' },
+      { text: 'Carbs (g)', value: 'carbs' },
+      { text: 'Protein (g)', value: 'protein' },
+      { text: 'Iron (%)', value: 'iron' }
+    ],
+    desserts: [
+      {
+        value: false,
+        name: 'Frozen Yogurt',
+        calories: 159,
+        fat: 6.0,
+        carbs: 24,
+        protein: 4.0,
+        iron: '1%'
+      },
+      {
+        value: false,
+        name: 'Ice cream sandwich',
+        calories: 237,
+        fat: 9.0,
+        carbs: 37,
+        protein: 4.3,
+        iron: '1%'
+      },
+      {
+        value: false,
+        name: 'Eclair',
+        calories: 262,
+        fat: 16.0,
+        carbs: 23,
+        protein: 6.0,
+        iron: '7%'
+      },
+      {
+        value: false,
+        name: 'Cupcake',
+        calories: 305,
+        fat: 3.7,
+        carbs: 67,
+        protein: 4.3,
+        iron: '8%'
+      },
+      {
+        value: false,
+        name: 'Gingerbread',
+        calories: 356,
+        fat: 16.0,
+        carbs: 49,
+        protein: 3.9,
+        iron: '16%'
+      },
+      {
+        value: false,
+        name: 'Jelly bean',
+        calories: 375,
+        fat: 0.0,
+        carbs: 94,
+        protein: 0.0,
+        iron: '0%'
+      },
+      {
+        value: false,
+        name: 'Lollipop',
+        calories: 392,
+        fat: 0.2,
+        carbs: 98,
+        protein: 0,
+        iron: '2%'
+      },
+      {
+        value: false,
+        name: 'Honeycomb',
+        calories: 408,
+        fat: 3.2,
+        carbs: 87,
+        protein: 6.5,
+        iron: '45%'
+      },
+      {
+        value: false,
+        name: 'Donut',
+        calories: 452,
+        fat: 25.0,
+        carbs: 51,
+        protein: 4.9,
+        iron: '22%'
+      },
+      {
+        value: false,
+        name: 'KitKat',
+        calories: 518,
+        fat: 26.0,
+        carbs: 65,
+        protein: 7,
+        iron: '6%'
+      }
+    ]
+  }),
+  props: {
+    source: String
   }
 }
 </script>
-
-<style scoped>
-@import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
-
-.btn-primary {
-  background: #468f65;
-  border: 1px solid #468f65;
-}
-.card {
-  text-decoration: none;
-  color: #000;
-}
-</style>

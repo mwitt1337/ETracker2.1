@@ -21,13 +21,17 @@ const building = buildingModel(sequelize, Sequelize)
 const meter = meterModel(sequelize, Sequelize)
 const bill = billModel(sequelize, Sequelize)
 const etracker = etrackerModel(sequelize, Sequelize)
-const etrackerdistrict = sequelize.define('etracker_district', {})
 
-bill.belongsTo(meter)
-meter.belongsTo(building)
-building.belongsTo(district)
-etracker.belongsTo(district)
-district.belongsToMany(etracker, {through: etrackerdistrict, unique: true})
+district.hasMany(building, {foreignKey: 'id', sourcekey: 'id'})
+building.belongsTo(district, {foreignKey: 'id', targetKey: 'id'})
+
+building.hasMany(meter, {foreignKey: 'id', sourceKey: 'id'})
+meter.belongsTo(building, {foreignKey: 'id', targetKey: 'id'})
+
+meter.hasMany(bill, {foreignKey: 'id', sourceKey: 'id'})
+bill.belongsTo(meter, {foreignKey: 'id', targetKey: 'id'})
+
+bill.belongsTo(etracker, {foreignKey: 'id', targetKey: 'id'})
 
 sequelize.sync({ force: true })
   .then(() => {
