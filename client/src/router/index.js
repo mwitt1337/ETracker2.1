@@ -2,7 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home.vue'
 import Callback from '@/components/Callback.vue'
-import AdminPanelDistricts from '@/components/AdminPanelDistricts.vue'
+import AdminDistricts from '@/components/AdminDistricts.vue'
+import AddBills from '@/components/AddBills.vue'
+import AdminMeters from '@/components/AdminMeters.vue'
+import AdminUsers from '@/components/AdminUsers.vue'
 
 Vue.use(Router)
 
@@ -20,11 +23,25 @@ const router = new Router({
       component: Callback
     },
     {
-      path: '/adminpaneldistricts',
-      name: 'adminpaneldistricts',
-      component: AdminPanelDistricts
+      path: '/AdminDistricts',
+      name: 'AdminDistricts',
+      component: AdminDistricts
+    },
+    {
+      path: '/AdminMeters',
+      name: 'AdminMeters',
+      component: AdminMeters
+    },
+    {
+      path: '/AddBills',
+      name: 'AddBills',
+      component: AddBills
+    },
+    {
+      path: '/AdminUsers',
+      name: 'AdminUsers',
+      component: AdminUsers
     }
-
   ]
 })
 

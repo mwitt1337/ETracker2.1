@@ -1,11 +1,12 @@
+const SongsController = require('./controllers/controllerDistricts')
+
 module.exports = (app) => {
-  app.get('/status', (req, res) => {
-    res.send({
-      message: 'hello world!'
-    })
-  })
-  // Admin Panel Routes
-  app.post('/adminpanel/districts', (req, res) => {
-    res.send({message: 'Districts Requested.'})
-  })
+  app.get('/districts',
+    SongsController.index)
+  app.get('/districts/:districtId',
+    SongsController.show)
+  app.put('/districts/:districtId',
+    SongsController.put)
+  app.post('/districts',
+    SongsController.post)
 }
