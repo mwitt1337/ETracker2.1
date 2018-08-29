@@ -18,7 +18,9 @@
             <v-icon>fa-building</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
+            <router-link :to="{ name: 'districtsandbuildings'}">
             <v-list-tile-title>Districts and Buildings</v-list-tile-title>
+            </router-link>
           </v-list-tile-content>
         </v-list-tile>
         </router-link>
