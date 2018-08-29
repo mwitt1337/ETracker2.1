@@ -46,7 +46,8 @@
       <v-flex d-flex xs12 order-xs5>
         <v-layout column>
           <v-flex d-flex>
-           
+            <districts-search-panel />
+            <districts-panel class="mt-2" />
           </v-flex>
         </v-layout>
       </v-flex>
@@ -69,14 +70,33 @@
 </template>
 
 <script>
+import districtsPanel from './districtPanel'
+import districtsSearchPanel from './districtSearchPanel'
+import districtService from '@/services/districtService'
+import {mapState} from 'vuex'
 export default {
-  data: () => ({
-    drawer: null,
-    lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`,
-    pageTitle: `School District Name`,
-  }),
+  components: {
+    districtsPanel,
+    districtsSearchPanel
+  },
+  computed: {
+    ...mapState([
+      'isUserLoggedIn'
+    ])
+  },
   props: {
     source: String
+    },
+  data () {
+    return {
+      drawer: null,
+      districts: null,
+      lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`,
+      pageTitle: `School District Name`
+    }
+  },
+  async mounted () {
+    this.districts = (await districtService.index()).data
   }
 }
 </script>
